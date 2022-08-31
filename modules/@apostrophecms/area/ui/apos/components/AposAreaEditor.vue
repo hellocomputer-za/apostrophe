@@ -27,6 +27,7 @@
           :empty="true"
           :index="0"
           :widget-options="options.widgets"
+          :options="options"
           :max-reached="maxReached"
           :disabled="field && field.readOnly"
         />

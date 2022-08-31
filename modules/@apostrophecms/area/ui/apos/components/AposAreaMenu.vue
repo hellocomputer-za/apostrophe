@@ -1,6 +1,16 @@
 <template>
   <div class="apos-area-menu" :class="{'apos-is-focused': groupIsFocused}">
+    <AposButton
+      v-if="options.expanded"
+      :disabled="isDisabled"
+      v-bind="buttonOptions"
+      class="apos-context-menu__btn"
+      @click="openExpandedMenu()"
+      ref="expandedMenuButton"
+      role="button"
+    />
     <AposContextMenu
+      v-else
       :disabled="isDisabled"
       :button="buttonOptions"
       v-bind="extendedContextMenuOptions"
@@ -100,6 +110,12 @@ export default {
     },
     widgetOptions: {
       type: Object,
+      default: function() {
+        return {};
+      }
+    },
+    options: {
+      type: Object,
       required: true
     },
     maxReached: {
@@ -110,7 +126,7 @@ export default {
       default: false
     }
   },
-  emits: [ 'menu-close', 'menu-open', 'add' ],
+  emits: [ '@apostrophecms/area:expanded-menu', 'menu-close', 'menu-open', 'add' ],
   data() {
     return {
       active: 0,
@@ -194,6 +210,12 @@ export default {
     this.inContext = !apos.util.closest(this.$el, '[data-apos-schema-area]');
   },
   methods: {
+    openExpandedMenu() {
+      apos.bus.$emit('admin-menu-click', {
+        itemName: '@apostrophecms/area:expanded-menu',
+        props: { options: this.options }
+      });
+    },
     menuClose(e) {
       this.$emit('menu-close', e);
     },

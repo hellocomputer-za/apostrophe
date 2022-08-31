@@ -61,6 +61,7 @@
           :context-menu-options="contextMenuOptions"
           :index="i"
           :widget-options="options.widgets"
+          :options="options"
           :disabled="disabled"
         />
       </div>
@@ -129,6 +130,7 @@
           :context-menu-options="bottomContextMenuOptions"
           :index="i + 1"
           :widget-options="options.widgets"
+          :options="options"
           :disabled="disabled"
           @menu-open="toggleMenuFocus($event, 'bottom', true)"
           @menu-close="toggleMenuFocus($event, 'bottom', false)"

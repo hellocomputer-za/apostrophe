@@ -28,6 +28,7 @@ module.exports = {
     self.widgetManagers = {};
     self.enableBrowserData();
     self.addDeduplicateWidgetIdsMigration();
+    self.addExpandedMenu();
   },
   apiRoutes(self) {
     return {
@@ -89,6 +90,14 @@ module.exports = {
   },
   methods(self) {
     return {
+      addExpandedMenu() {
+        self.apos.modal.add(
+          `${self.__meta.name}:expanded-menu`,
+          self.getComponentName('areaExpandedMenu', 'AposAreaExpandedMenu'),
+          { moduleName: self.__meta.name }
+        );
+      },
+
       // Set the manager object for the given widget type name. The manager is
       // expected to provide `sanitize`, `output` and `load` methods. Normally
       // this method is called for you when you extend the `@apostrophecms/widget-type`
